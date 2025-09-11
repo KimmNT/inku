@@ -1,0 +1,66 @@
+@use "../../styles/utils.scss";
+.Container {
+  width: 100%;
+  height: 100dvh;
+
+  .Heading {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .ChapterImages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    .ImageWrapper {
+      width: 80%;
+      text-align: center;
+
+      @include utils.viewport(3) {
+        width: 98%;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .Pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10rem;
+    gap: 1rem;
+
+    .Button {
+      padding: 0.5rem 1rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+      background-color: #19183b;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &.Disabled {
+        background-color: #708993;
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+  }
+}
