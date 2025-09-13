@@ -2,6 +2,28 @@
 .Container {
   width: 100%;
   height: 100dvh;
+  padding-top: var(--navbar-height);
+
+  .BackButton {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 2rem;
+
+    .Button {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .ButtonIcon {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .ButtonHeading {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+    }
+  }
 
   .Heading {
     font-size: 2rem;
@@ -41,19 +63,19 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 10rem;
-    gap: 1rem;
+    gap: 0.5rem;
 
     .Button {
       padding: 0.5rem 1rem;
       font-size: 1.5rem;
       text-decoration: none;
-      color: white;
-      background-color: #19183b;
+      color: black;
+      background-color: #fcb53b;
       border-radius: 4px;
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #fcb53b;
       }
 
       &.Disabled {
@@ -61,6 +83,47 @@
         pointer-events: none;
         cursor: default;
       }
+    }
+
+    .Selector {
+      padding: 0.5rem;
+      font-size: 1.5rem;
+      border-radius: 4px;
+      border: 0.125rem solid #ccc;
+      background-color: white;
+      cursor: pointer;
+
+      &:hover {
+        border-color: #19183b;
+      }
+
+      .Option {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .ToTopButton {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    color: #19183b;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
+
+    &:hover {
+      background-color: #f0f0f0;
+      transform: scale(1.1);
     }
   }
 }

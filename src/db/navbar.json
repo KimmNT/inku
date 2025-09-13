@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Home",
+    "path": "/"
+  },
+  {
+    "title": "Search Manga",
+    "path": "/manga_search"
+  },
+  {
+    "title": "Genres",
+    "path": "/genres"
+  },
+  {
+    "title": "Contact",
+    "path": "/contact"
+  }
+]

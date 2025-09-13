@@ -1,3 +1,10 @@
+import Navbar from "@/components/Navbar/Navbar";
+
 export default function Index() {
-  return <div>Welcome to Inku - a reading place</div>;
+  return (
+    <>
+      <Navbar />
+      <main>Welcome to Inku - a reading place</main>
+    </>
+  );
 }

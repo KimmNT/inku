@@ -1,10 +1,13 @@
 import { useMangaByName } from "@/libs/manga/hooks/useMangaByName";
 import type { ChapterResponse } from "@/libs/manga/mangaModel";
-import { ChapterRoute } from "@/routeRegistry";
+import { ChapterRoute, MangaSearchResultRoute } from "@/routeRegistry";
 import { Link, useRouter } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import style from "./Chapter.module.scss";
 import clsx from "clsx";
+import { ArrowLeft, ArrowUpCircle } from "lucide-react";
+import Loading from "@/components/Loading/Loading";
+import Navbar from "@/components/Navbar/Navbar";
 
 const IMG_DOMAIN = "https://sv1.otruyencdn.com";
 
@@ -64,11 +67,28 @@ export default function Chapter() {
     [manga_name, router]
   );
 
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <>
-      {chapterLoading && <p>Loading chapter...</p>}
+      <Navbar />
+      {chapterLoading && <Loading />}
       {!chapterLoading && chapterData && (
         <div className={style.Container}>
+          <div className={style.BackButton}>
+            <Link
+              to={MangaSearchResultRoute.fullPath}
+              params={{
+                manga_name: manga_name,
+              }}
+              className={style.Button}
+            >
+              <ArrowLeft className={style.ButtonIcon} />
+              <p className={style.ButtonHeading}>Back to search</p>
+            </Link>
+          </div>
           <div className={style.Heading}>
             {chapterData?.item?.chapter_title}
           </div>
@@ -87,13 +107,17 @@ export default function Chapter() {
             >
               Chapter {parseInt(chapter_num) - 1}
             </Link>
-            <select onChange={handleChapterChange} value={chapter_num}>
-              <option value="" disabled>
+            <select
+              onChange={handleChapterChange}
+              value={chapter_num}
+              className={style.Selector}
+            >
+              <option value="" disabled className={style.Option}>
                 Select Chapter
               </option>
               {chapterList.map((num) => (
-                <option key={num} value={num}>
-                  Chapter {num + 1}
+                <option key={num} value={num} className={style.Option}>
+                  Chapter {num}
                 </option>
               ))}
             </select>
@@ -108,6 +132,7 @@ export default function Chapter() {
               Chapter {parseInt(chapter_num) + 1}
             </Link>
           </div>
+
           <div className={style.ChapterImages}>
             {chapterData?.item?.chapter_image.map((item, index) => {
               const imgPath = chapterData.item.chapter_path;
@@ -149,6 +174,11 @@ export default function Chapter() {
               Chapter {parseInt(chapter_num) + 1}
             </Link>
           </div>
+
+          <ArrowUpCircle
+            onClick={() => scrollToTop()}
+            className={style.ToTopButton}
+          />
         </div>
       )}
     </>
