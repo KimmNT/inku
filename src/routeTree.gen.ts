@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SavedIndexRouteImport } from './routes/saved/index'
 import { Route as Manga_searchIndexRouteImport } from './routes/manga_search/index'
 import { Route as Manga_searchManga_nameIndexRouteImport } from './routes/manga_search/$manga_name/index'
 import { Route as Manga_searchManga_nameChapterChapter_numIndexRouteImport } from './routes/manga_search/$manga_name/chapter/$chapter_num/index'
@@ -19,6 +20,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+const SavedIndexRoute = SavedIndexRouteImport.update({
+  id: '/saved/',
+  path: '/saved/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/saved/index.lazy').then((d) => d.Route))
 const Manga_searchIndexRoute = Manga_searchIndexRouteImport.update({
   id: '/manga_search/',
   path: '/manga_search/',
@@ -48,12 +54,14 @@ const Manga_searchManga_nameChapterChapter_numIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/manga_search': typeof Manga_searchIndexRoute
+  '/saved': typeof SavedIndexRoute
   '/manga_search/$manga_name': typeof Manga_searchManga_nameIndexRoute
   '/manga_search/$manga_name/chapter/$chapter_num': typeof Manga_searchManga_nameChapterChapter_numIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/manga_search': typeof Manga_searchIndexRoute
+  '/saved': typeof SavedIndexRoute
   '/manga_search/$manga_name': typeof Manga_searchManga_nameIndexRoute
   '/manga_search/$manga_name/chapter/$chapter_num': typeof Manga_searchManga_nameChapterChapter_numIndexRoute
 }
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/manga_search/': typeof Manga_searchIndexRoute
+  '/saved/': typeof SavedIndexRoute
   '/manga_search/$manga_name/': typeof Manga_searchManga_nameIndexRoute
   '/manga_search/$manga_name/chapter/$chapter_num/': typeof Manga_searchManga_nameChapterChapter_numIndexRoute
 }
@@ -69,18 +78,21 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/manga_search'
+    | '/saved'
     | '/manga_search/$manga_name'
     | '/manga_search/$manga_name/chapter/$chapter_num'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/manga_search'
+    | '/saved'
     | '/manga_search/$manga_name'
     | '/manga_search/$manga_name/chapter/$chapter_num'
   id:
     | '__root__'
     | '/'
     | '/manga_search/'
+    | '/saved/'
     | '/manga_search/$manga_name/'
     | '/manga_search/$manga_name/chapter/$chapter_num/'
   fileRoutesById: FileRoutesById
@@ -88,6 +100,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Manga_searchIndexRoute: typeof Manga_searchIndexRoute
+  SavedIndexRoute: typeof SavedIndexRoute
   Manga_searchManga_nameIndexRoute: typeof Manga_searchManga_nameIndexRoute
   Manga_searchManga_nameChapterChapter_numIndexRoute: typeof Manga_searchManga_nameChapterChapter_numIndexRoute
 }
@@ -99,6 +112,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved/': {
+      id: '/saved/'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/manga_search/': {
@@ -128,6 +148,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Manga_searchIndexRoute: Manga_searchIndexRoute,
+  SavedIndexRoute: SavedIndexRoute,
   Manga_searchManga_nameIndexRoute: Manga_searchManga_nameIndexRoute,
   Manga_searchManga_nameChapterChapter_numIndexRoute:
     Manga_searchManga_nameChapterChapter_numIndexRoute,

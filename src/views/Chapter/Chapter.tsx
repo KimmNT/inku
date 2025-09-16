@@ -8,6 +8,8 @@ import clsx from "clsx";
 import { ArrowLeft, ArrowUpCircle } from "lucide-react";
 import Loading from "@/components/Loading/Loading";
 import Navbar from "@/components/Navbar/Navbar";
+import TabTitle from "@/components/TabTitle/TabTitle";
+import { useMangaStorage } from "@/libs/manga/useMangaStorage";
 
 const IMG_DOMAIN = "https://sv1.otruyencdn.com";
 
@@ -15,6 +17,7 @@ export default function Chapter() {
   const { manga_name, chapter_num } = ChapterRoute.useParams();
   const [chapterLoading, setChapterLoading] = useState(false);
   const [chapterData, setChapterData] = useState<ChapterResponse | null>(null);
+  const { addManga } = useMangaStorage();
 
   const router = useRouter();
 
@@ -59,6 +62,13 @@ export default function Chapter() {
   const handleChapterChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedChapter = e.target.value;
+
+      addManga({
+        id: mangaSearchData?.data.titlePage ?? "",
+        title: manga_name ?? "",
+        cover: mangaSearchData?.data.items[0]?.thumb_url ?? "",
+        chapter: selectedChapter,
+      });
       router.navigate({
         to: ChapterRoute.fullPath,
         params: { manga_name, chapter_num: selectedChapter },
@@ -67,12 +77,20 @@ export default function Chapter() {
     [manga_name, router]
   );
 
+  const chapterChangeBuilder = (chapterNum: string) => {
+    router.navigate({
+      to: ChapterRoute.fullPath,
+      params: { manga_name, chapter_num: chapterNum },
+    });
+  };
+
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
     <>
+      <TabTitle title={manga_name} />
       <Navbar />
       {chapterLoading && <Loading />}
       {!chapterLoading && chapterData && (
@@ -94,19 +112,26 @@ export default function Chapter() {
           </div>
 
           <div className={style.Pagination}>
-            <Link
+            <button
+              type="button"
               className={clsx(
                 style.Button,
                 parseInt(chapter_num) === 1 && style.Disabled
               )}
-              to={ChapterRoute.fullPath}
-              params={{
-                manga_name: manga_name,
-                chapter_num: (parseInt(chapter_num) - 1).toString(),
+              onClick={() => {
+                const prevChapter = (parseInt(chapter_num) - 1).toString();
+
+                chapterChangeBuilder((parseInt(chapter_num) - 1).toString());
+                addManga({
+                  id: mangaSearchData?.data.titlePage ?? "",
+                  title: manga_name ?? "",
+                  cover: mangaSearchData?.data.items[0]?.thumb_url ?? "",
+                  chapter: prevChapter,
+                });
               }}
             >
               Chapter {parseInt(chapter_num) - 1}
-            </Link>
+            </button>
             <select
               onChange={handleChapterChange}
               value={chapter_num}
@@ -121,16 +146,26 @@ export default function Chapter() {
                 </option>
               ))}
             </select>
-            <Link
-              className={clsx(style.Button)}
-              to={ChapterRoute.fullPath}
-              params={{
-                manga_name: manga_name,
-                chapter_num: (parseInt(chapter_num) + 1).toString(),
+            <button
+              type="button"
+              className={clsx(
+                style.Button,
+                parseInt(chapter_num) === parseInt(latestChapterName) &&
+                  style.Disabled
+              )}
+              onClick={() => {
+                const nextChapter = (parseInt(chapter_num) + 1).toString();
+                chapterChangeBuilder((parseInt(chapter_num) + 1).toString());
+                addManga({
+                  id: mangaSearchData?.data.titlePage ?? "",
+                  title: manga_name ?? "",
+                  cover: mangaSearchData?.data.items[0]?.thumb_url ?? "",
+                  chapter: nextChapter,
+                });
               }}
             >
               Chapter {parseInt(chapter_num) + 1}
-            </Link>
+            </button>
           </div>
 
           <div className={style.ChapterImages}>
@@ -150,29 +185,47 @@ export default function Chapter() {
           </div>
 
           <div className={style.Pagination}>
-            <Link
+            <button
+              type="button"
               className={clsx(
                 style.Button,
                 parseInt(chapter_num) === 1 && style.Disabled
               )}
-              to={ChapterRoute.fullPath}
-              params={{
-                manga_name: manga_name,
-                chapter_num: (parseInt(chapter_num) - 1).toString(),
+              onClick={() => {
+                const prevChapter = (parseInt(chapter_num) - 1).toString();
+
+                chapterChangeBuilder((parseInt(chapter_num) - 1).toString());
+                addManga({
+                  id: mangaSearchData?.data.titlePage ?? "",
+                  title: manga_name ?? "",
+                  cover: mangaSearchData?.data.items[0]?.thumb_url ?? "",
+                  chapter: prevChapter,
+                });
               }}
             >
               Chapter {parseInt(chapter_num) - 1}
-            </Link>
-            <Link
-              className={clsx(style.Button)}
-              to={ChapterRoute.fullPath}
-              params={{
-                manga_name: manga_name,
-                chapter_num: (parseInt(chapter_num) + 1).toString(),
+            </button>
+            <button
+              type="button"
+              className={clsx(
+                style.Button,
+                parseInt(chapter_num) === parseInt(latestChapterName) &&
+                  style.Disabled
+              )}
+              onClick={() => {
+                const nextChapter = (parseInt(chapter_num) + 1).toString();
+
+                chapterChangeBuilder((parseInt(chapter_num) + 1).toString());
+                addManga({
+                  id: mangaSearchData?.data.titlePage ?? "",
+                  title: manga_name ?? "",
+                  cover: mangaSearchData?.data.items[0]?.thumb_url ?? "",
+                  chapter: nextChapter,
+                });
               }}
             >
               Chapter {parseInt(chapter_num) + 1}
-            </Link>
+            </button>
           </div>
 
           <ArrowUpCircle

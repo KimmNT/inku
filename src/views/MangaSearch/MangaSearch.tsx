@@ -1,16 +1,24 @@
 import Navbar from "@/components/Navbar/Navbar";
 import { MangaSearchResultRoute } from "@/routeRegistry";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import style from "./MangaSearch.module.scss";
 
 export default function MangaSearch() {
   const [mangaTitle, setMangaTitle] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  const searchMangaBuilder = (manga_name: string) => {
+    router.navigate({
+      to: MangaSearchResultRoute.fullPath,
+      params: { manga_name },
+    });
+  };
 
   return (
     <>
@@ -22,6 +30,11 @@ export default function MangaSearch() {
           type="text"
           value={mangaTitle}
           onChange={(e) => setMangaTitle(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && mangaTitle.trim() !== "") {
+              searchMangaBuilder(mangaTitle);
+            }
+          }}
         />
         <Link
           to={MangaSearchResultRoute.fullPath}
