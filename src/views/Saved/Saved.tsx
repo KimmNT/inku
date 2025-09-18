@@ -2,14 +2,14 @@ import Navbar from "@/components/Navbar/Navbar";
 import TabTitle from "@/components/TabTitle/TabTitle";
 import { useMangaStorage } from "@/libs/manga/useMangaStorage";
 import style from "./Saved.module.scss";
-import { Eye } from "lucide-react";
+import { Eye, X } from "lucide-react";
 import { useRouter } from "@tanstack/react-router";
 import { ChapterRoute } from "@/routeRegistry";
 
 const IMG_DOMAIN = "https://img.otruyenapi.com/uploads/comics";
 
 export default function Saved() {
-  const { mangaList } = useMangaStorage();
+  const { mangaList, removeManga } = useMangaStorage();
 
   const router = useRouter();
 
@@ -53,6 +53,14 @@ export default function Saved() {
                           className={style.ViewButton}
                         >
                           <Eye className={style.ViewButtonIcon} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => removeManga(item.id)}
+                          className={style.ViewButton}
+                        >
+                          <X className={style.ViewButtonIcon} />
                         </button>
                       </div>
                       {/* <p>

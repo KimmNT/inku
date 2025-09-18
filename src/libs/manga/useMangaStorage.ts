@@ -30,5 +30,11 @@ export function useMangaStorage() {
     localStorage.setItem("manga", JSON.stringify(updated));
   };
 
-  return { mangaList, addManga };
+  const removeManga = (id: string) => {
+    const updated = mangaList.filter((m) => m.id !== id);
+    setMangaList(updated);
+    localStorage.setItem("manga", JSON.stringify(updated));
+  };
+
+  return { mangaList, addManga, removeManga };
 }
