@@ -3,6 +3,7 @@ import { MangaSearchResultRoute } from "@/routeRegistry";
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import style from "./MangaSearch.module.scss";
+import TabTitle from "@/components/TabTitle/TabTitle";
 
 export default function MangaSearch() {
   const [mangaTitle, setMangaTitle] = useState("");
@@ -22,6 +23,7 @@ export default function MangaSearch() {
 
   return (
     <>
+      <TabTitle title="Manga Search" />
       <Navbar />
       <main className={style.Container}>
         <h1 className={style.Heading}>Search your manga</h1>

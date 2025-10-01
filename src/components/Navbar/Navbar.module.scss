@@ -1,4 +1,5 @@
 @use "../../styles/utils.scss";
+@use "../../styles/colores.scss";
 
 :root {
   --navbar-height: 70px;
@@ -11,16 +12,47 @@
   gap: 4rem;
   padding: 2rem 4rem;
   width: 100%;
-  border-bottom: 0.125rem solid #e0e0e0;
   height: var(--navbar-height);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  background-color: black;
+  background-color: var(--color-secondary);
 
   @include utils.viewport(2) {
     padding: 2rem;
+  }
+
+  .SearchBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.125rem solid var(--color-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    width: 30rem;
+
+    input {
+      border: none;
+      outline: none;
+      font-size: 1.2rem;
+      color: white;
+      width: 100%;
+    }
+
+    .SearchButton {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .SearchButtonIcon {
+        font-size: 1rem;
+        color: white;
+      }
+    }
   }
 
   .MobileIcon {
@@ -55,12 +87,12 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        color: #fcb53b;
+        color: var(--color-accent);
       }
 
       &.Active {
-        background-color: #fcb53b;
-        color: black;
+        background-color: var(--color-primary);
+        color: white;
       }
     }
   }
@@ -72,7 +104,7 @@
     left: 0;
     width: 100%;
     height: 100dvh;
-    background-color: #fcb53b;
+    background-color: var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: center;

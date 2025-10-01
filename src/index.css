@@ -11,11 +11,24 @@
   font-weight: normal;
 }
 
+@font-face {
+  font-family: "Fredoka";
+  src: url("./assets/fonts/Fredoka-VariableFont_wdth,wght.ttf");
+  src:
+    url("./assets/fonts/Fredoka-VariableFont_wdth,wght.ttf?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/Fredoka-VariableFont_wdth,wght.ttf") format("woff"),
+    url("./assets/fonts/Fredoka-VariableFont_wdth,wght.ttf") format("truetype"),
+    url("FileName.svg#Montserrat") format("svg");
+  font-style: normal;
+  font-weight: normal;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Montserrat;
+  font-family: Fredoka;
 }
 
 html {
@@ -41,5 +54,5 @@ button {
 input {
   outline: none;
   background-color: transparent;
-  font-family: GoogleCode;
+  font-family: Montserrat;
 }

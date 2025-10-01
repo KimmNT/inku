@@ -1,3 +1,5 @@
+@use "../../styles/colores.scss";
+
 .Container {
   width: 10rem;
   height: 5rem;
@@ -8,21 +10,20 @@
   .Upper {
     width: 100%;
     height: 50%;
-    background-color: #ffe797;
+    background-color: var(--color-primary);
   }
   .Lower {
     width: 100%;
     height: 50%;
-    background-color: #fcb53b;
+    background-color: var(--color-primary);
   }
   .Text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: black;
+    font-size: 3rem;
+    color: white;
     z-index: 1;
   }
 }

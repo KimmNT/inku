@@ -7,7 +7,7 @@ type TabTitleProps = {
 export default function TabTitle({ title }: TabTitleProps) {
   useEffect(() => {
     const prevTitle = document.title;
-    document.title = `${title} | Inku`;
+    document.title = `${title} | inku`;
 
     // restore on unmount
     return () => {

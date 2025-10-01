@@ -28,7 +28,9 @@ export const ChaptersLatest = type({
 });
 
 export const DataItem = type({
-  name: "number",
+  _id: "string",
+  name: "string",
+  slug: "string",
   status: "string",
   thumb_url: "string",
   author: "string[]",
@@ -36,6 +38,8 @@ export const DataItem = type({
   chapters: Chapters.array(),
   chaptersLatest: ChaptersLatest.array(),
 });
+
+export type DataItem = typeof DataItem.infer;
 
 export const Data = type({
   seoOnPage: SeoOnPage,
